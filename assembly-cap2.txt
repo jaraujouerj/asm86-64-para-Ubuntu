@@ -1,0 +1,892 @@
+Warning, keyboard not found. Press enter
+to continue.
+
+Chapter
+2
+
+2.0 Architecture Overview
+This chapter presents a basic, general overview of the x86-64 architecture. For a more
+detailed explanation, refer to the additional references noted in Chapter 1, Introduction.
+
+2.1 Architecture Overview
+The basic components of a computer include a Central Processing Unit (CPU), Primary
+Storage or Random Access Memory (RAM), Secondary Storage, Input/Output devices
+(e.g., screen, keyboard, mouse), and an interconnection referred to as the Bus.
+A very basic diagram of the computer architecture is as follows:
+
+CPU
+
+Primary Storage
+Random Access
+Memory (RAM)
+BUS
+(Interconnection)
+
+Screen / Keyboard /
+Mouse
+
+Secondary Storage
+(i.e., SSD / Disk Drive /
+Other Storage Media)
+
+Illustration 1: Computer Architecture
+Page 7
+
+Chapter 2.0  Architecture Overview
+The architecture is typically referred to as the Von Neumann Architecture 4, or the
+Princeton architecture, and was described in 1945 by the mathematician and physicist
+John von Neumann.
+Programs and data are typically stored on secondary storage (e.g., disk drive or solid
+state drive). When a program is executed, it must be copied from secondary storage into
+the primary storage or main memory (RAM). The CPU executes the program from
+primary storage or RAM.
+Primary storage or main memory is also referred to as volatile memory since when
+power is removed, the information is not retained and thus lost. Secondary storage is
+referred to as non-volatile memory since the information is retained when powered off.
+For example, consider storing a term paper on secondary storage (i.e., disk). When the
+user starts to write or edit the term paper, it is copied from the secondary storage
+medium into primary storage (i.e., RAM or main memory). When done, the updated
+version is typically stored back to the secondary storage (i.e., disk). If you have ever
+lost power while editing a document (assuming no battery or uninterruptible power
+supply), losing the unsaved work will certainly clarify the difference between volatile
+and non-volatile memory.
+
+2.2 Data Storage Sizes
+The x86-64 architecture supports a specific set of data storage size elements, all based
+on powers of two. The supported storage sizes are as follows:
+Storage
+
+Size (bits)
+
+Size (bytes)
+
+Byte
+
+8-bits
+
+1 byte
+
+Word
+
+16-bits
+
+2 bytes
+
+Double-word
+
+32-bits
+
+4 bytes
+
+Quadword
+
+64-bits
+
+8 bytes
+
+Double quadword
+
+128-bits
+
+16 bytes
+
+Lists or arrays (sets of memory) can be reserved in any of these types.
+These storage sizes have a direct correlation to variable declarations in high-level
+languages (e.g., C, C++, Java, etc.).
+
+4
+
+For more information, refer to: http://en.wikipedia.org/wiki/Von_Neumann_architecture
+
+Page 8
+
+For example, C/C++ declarations are mapped as follows:
+C/C++ Declaration
+
+Storage
+
+Size (bits)
+
+Size (bytes)
+
+char
+
+Byte
+
+8-bits
+
+1 byte
+
+short
+
+Word
+
+16-bits
+
+2 bytes
+
+int
+
+Double-word
+
+32-bits
+
+4 bytes
+
+unsigned int
+
+Double-word
+
+32-bits
+
+4 bytes
+
+long5
+
+Quadword
+
+64-bits
+
+8 bytes
+
+long long
+
+Quadword
+
+64-bits
+
+8 bytes
+
+char *
+
+Quadword
+
+64-bits
+
+8 bytes
+
+int *
+
+Quadword
+
+64-bits
+
+8 bytes
+
+float
+
+Double-word
+
+32-bits
+
+4 bytes
+
+double
+
+Quadword
+
+64-bits
+
+8 bytes
+
+The asterisk indicates an address variable. For example, int * means the address of an
+integer. Other high-level languages typically have similar mappings.
+
+2.3 Central Processing Unit
+The Central Processing Unit6 (CPU) is typically referred to as the “brains” of the
+computer since that is where the actual calculations are performed. The CPU is housed
+in a single chip, sometimes called a processor, chip, or die7. The cover image shows one
+such CPU.
+The CPU chip includes a number of functional units, including the Arithmetic Logic
+Unit8 (ALU) which is the part of the chip that actually performs the arithmetic and
+logical calculations. In order to support the ALU, processor registers9 and cache10
+memory are also included “on the die” (term for inside the chip). The CPU registers and
+cache memory are described in subsequent sections.
+It should be noted that the internal design of a modern processor is quite complex. This
+section provides a very simplified, high-level view of some key functional units within a
+CPU. Refer to the footnotes or additional references for more information.
+5
+6
+7
+8
+9
+10
+
+Note, the 'long' type declaration is compiler dependent. Type shown is for gcc and g++ compilers.
+For more information, refer to: http://en.wikipedia.org/wiki/Central_processing_unit
+For more information, refer to: http://en.wikipedia.org/wiki/Die_(integrated_circuit)
+For more information, refer to: http://en.wikipedia.org/wiki/Arithmetic_logic_unit
+For more information, refer to: http://en.wikipedia.org/wiki/Processor_register
+For more information, refer to: http://en.wikipedia.org/wiki/Cache_(computing)
+
+Page 9
+
+Chapter 2.0  Architecture Overview
+
+2.3.1 CPU Registers
+A CPU register, or just register, is a temporary storage or working location built into the
+CPU itself (separate from memory). Computations are typically performed by the CPU
+using registers.
+2.3.1.1 General Purpose Registers (GPRs)
+
+There are sixteen, 64-bit General Purpose Registers (GPRs). The GPRs are described in
+the following table. A GPR register can be accessed with all 64-bits or some portion or
+subset accessed.
+64-bit register
+
+Lowest
+32-bits
+
+Lowest
+16-bits
+
+Lowest
+8-bits
+
+rax
+
+eax
+
+ax
+
+al
+
+rbx
+
+ebx
+
+bx
+
+bl
+
+rcx
+
+ecx
+
+cx
+
+cl
+
+rdx
+
+edx
+
+dx
+
+dl
+
+rsi
+
+esi
+
+si
+
+sil
+
+rdi
+
+edi
+
+di
+
+dil
+
+rbp
+
+ebp
+
+bp
+
+bpl
+
+rsp
+
+esp
+
+sp
+
+spl
+
+r8
+
+r8d
+
+r8w
+
+r8b
+
+r9
+
+r9d
+
+r9w
+
+r9b
+
+r10
+
+r10d
+
+r10w
+
+r10b
+
+r11
+
+r11d
+
+r11w
+
+r11b
+
+r12
+
+r12d
+
+r12w
+
+r12b
+
+r13
+
+r13d
+
+r13w
+
+r13b
+
+r14
+
+r14d
+
+r14w
+
+r14b
+
+r15
+
+r15d
+
+r15w
+
+r15b
+
+Additionally, some of the GPR registers are used for dedicated purposes as described in
+the later sections.
+When using data element sizes less than 64-bits (i.e., 32-bit, 16-bit, or 8-bit), the lower
+Page 10
+
+portion of the register can be accessed by using a different register name as shown in the
+table.
+For example, when accessing the lower portions of the 64-bit rax register, the layout is
+as follows:
+←
+
+eax
+
+→
+
+←
+rax =
+
+ah
+
+ax
+
+→
+al
+
+As shown in the diagram, the first four registers, rax, rbx, rcx, and rdx also allow the
+bits 8-15 to be accessed with the ah, bh, ch, and dh register names. With the exception
+of ah, these are provided for legacy support and will not be used in this text.
+The ability to access portions of the register means that, if the quadword rax register is
+set to 50,000,000,00010 (fifty billion), the rax register would contain the following value
+in hex.
+rax = 0000 000B A43B 7400
+
+If a subsequent operation sets the word ax register to 50,00010 (fifty-thousand, which is
+C35016), the rax register would contain the following value in hex.
+rax = 0000 000B A43B C350
+
+In this case, when the lower 16-bit ax portion of the 64-bit rax register is set, the upper
+48-bits are unaffected. Note the change in AX (from 740016 to C35016).
+If a subsequent operation sets the byte sized al register to 5010 (fifty, which is 3216), the
+rax register would contain the following value in hex.
+rax = 0000 000B A43B C332
+
+When the lower 8-bit al portion of the 64-bit rax register is set, the upper 56-bits are
+unaffected. Note the change in AL (from 5016 to 3216).
+For 32-bit register operations, the upper 32-bits is cleared (set to zero’s). Generally, this
+is not an issue since operations on 32-bit registers do not use the upper 32-bits of the
+register. For unsigned values, this can be useful to convert from 32-bits to 64-bits.
+However, this will not work for signed conversions from 32-bit to 64-it values.
+Specifically, it will potentially provide incorrect results for numbers negative values.
+Refer to Chapter 3, Data Representation for addition information regarding the
+representation of signed values.
+
+Page 11
+
+Chapter 2.0 ◄ Architecture Overview
+2.3.1.2 Stack Pointer Register (RSP)
+
+One of the CPU registers, rsp, is used to point to the current top of the stack. The rsp
+register should not be used for data or other uses. Additional information regarding the
+stack and stack operations is provided in Chapter 9, Process Stack.
+2.3.1.3 Base Pointer Register (RBP)
+
+One of the CPU registers, rbp, is used as a base pointer during function calls. The rbp
+register should not be used for data or other uses. Additional information regarding the
+functions and function calls is provided in Chapter 12, Functions.
+2.3.1.4 Instruction Pointer Register (RIP)
+
+In addition to the GPRs, there is a special register, rip, which is used by the CPU to
+point to the next instruction to be executed. Specifically, since the rip points to the
+next instruction, that means the instruction being pointed to by rip, and shown in the
+debugger, has not yet been executed. This is an important distinction which can be
+confusing when reviewing code in a debugger.
+2.3.1.5 Flag Register (rFlags)
+
+The flag register, rFlags, is used for status and CPU control information. The rFlag
+register is updated by the CPU after each instruction and not directly accessible by
+programs. This register stores status information about the instruction that was just
+executed. Of the 64-bits in the rFlag register, many are reserved for future use.
+The following table shows some of the status bits in the flag register.
+
+Page 12
+
+Name
+
+Symbol
+
+Bit
+
+Use
+
+Carry
+
+CF
+
+0
+
+Used to indicate if the previous operation
+resulted in a carry.
+
+Parity
+
+PF
+
+2
+
+Used to indicate if the last byte has an even
+number of 1's (i.e., even parity).
+
+Adjust
+
+AF
+
+4
+
+Used to support Binary Coded Decimal
+operations.
+
+Zero
+
+ZF
+
+6
+
+Used to indicate if the previous operation
+resulted in a zero result.
+
+Sign
+
+SF
+
+7
+
+Used to indicate if the result of the
+previous operation resulted in a 1 in the
+most significant bit (indicating negative in
+the context of signed data).
+
+Direction
+
+DF
+
+10
+
+Used to specify the direction (increment or
+decrement) for some string operations.
+
+Overflow
+
+OF
+
+11
+
+Used to indicate if the previous operation
+resulted in an overflow.
+
+There are a number of additional bits not specified in this text. More information can be
+obtained from the additional references noted in Chapter 1, Introduction.
+2.3.1.6 XMM Registers
+
+There are a set of dedicated registers used to support 64-bit and 32-bit floating-point
+operations and Single Instruction Multiple Data (SIMD) instructions. The SIMD
+instructions allow a single instruction to be applied simultaneously to multiple data
+items. Used effectively, this can result in a significant performance increase. Typical
+applications include some graphics processing and digital signal processing.
+The XMM registers as follows:
+128-bit Registers
+xmm0
+xmm1
+xmm2
+xmm3
+xmm4
+xmm5
+xmm6
+xmm7
+xmm8
+xmm9
+xmm10
+xmm11
+xmm12
+
+Page 13
+
+Chapter 2.0 ◄ Architecture Overview
+xmm13
+xmm14
+xmm15
+
+Note, some of the more recent X86-64 processors support 256-bit XMM registers. This
+will not be an issue for the programs in this text.
+Additionally, the XMM registers are used to support the Streaming SIMD Extensions
+(SSE). The SSE instructions are out of the scope of this text. More information can be
+obtained from the Intel references (as noted in Chapter 1, Introduction).
+
+2.3.2 Cache Memory
+Cache memory is a small subset of the primary storage or RAM located in the CPU
+chip. If a memory location is accessed, a copy of the value is placed in the cache.
+Subsequent accesses to that memory location that occur in quick succession are
+retrieved from the cache location (internal to the CPU chip). A memory read involves
+sending the address via the bus to the memory controller, which will obtain the value at
+the requested memory location, and send it back through the bus. Comparatively, if a
+value is in cache, it would be much faster to access that value.
+A cache hit occurs when the requested data can be found in a cache, while a cache miss
+occurs when it cannot. Cache hits are served by reading data from the cache, which is
+faster than reading from main memory. The more requests that can be served from
+cache, the faster the system will typically perform. Successive generations of CPU
+chips have increased cache memory and improved cache mapping strategies in order to
+improve overall performance.
+
+Page 14
+
+A block diagram of a typical CPU chip configuration is as follows:
+
+CPU Chip
+
+Core 0
+
+Core 1
+
+L1 Cache
+
+L1 Cache
+
+L2 Cache
+
+BUS
+Illustration 2: CPU Block Diagram
+Current chip designs typically include an L1 cache per core and a shared L2 cache.
+Many of the newer CPU chips will have an additional L3 cache.
+As can be noted from the diagram, all memory accesses travel through each level of
+cache. As such, there is a potential for multiple, duplicate copies of the value (CPU
+register, L1 cache, L2 cache, and main memory). This complication is managed by the
+CPU and is not something the programmer can change. Understanding the cache and
+associated performance gain is useful in understanding how a computer works.
+
+2.4 Main Memory
+Memory can be viewed as a series of bytes, one after another. That is, memory is byte
+addressable. This means each memory address holds one byte of information. To store
+a double-word, four bytes are required which use four memory addresses.
+Additionally, architecture is little-endian. This means that the Least Significant Byte
+(LSB) is stored in the lowest memory address. The Most Significant Byte (MSB) is
+stored in the highest memory location.
+Page 15
+
+Chapter 2.0 ◄ Architecture Overview
+For a double-word (32-bits), the MSB and LSB are allocated as shown below.
+31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10
+
+9
+
+8
+
+7
+
+6
+
+MSB
+
+5
+
+4
+
+3
+
+2
+
+1
+
+0
+
+LSB
+
+For example, assuming the value of, 5,000,00010 (004C4B4016), is to be placed in a
+double-word variable named var1.
+For a little-endian architecture, the memory picture would be as follows:
+
+variable
+name
+
+var1 →
+
+value
+
+Address
+(in hex)
+
+?
+
+0100100C
+
+00
+
+0100100B
+
+4C
+
+0100100A
+
+4B
+
+01001009
+
+40
+
+01001008
+
+?
+
+01001007
+
+Illustration 3: Little-Endian Data Layout
+Based on the little-endian architecture, the LSB is stored in the lowest memory address
+and the MSB is stored in the highest memory location.
+
+Page 16
+
+2.5 Memory Layout
+The general memory layout for a program is as shown:
+high memory
+
+stack
+.
+.
+.
+heap
+BSS – uninitialized data
+data
+text (code)
+
+low memory
+
+reserved
+
+Illustration 4: General Memory Layout
+
+The reserved section is not available to user programs. The text (or code) section is
+where the machine language11 (i.e., the 1's and 0's that represent the code) is stored. The
+data section is where the initialized data is stored. This includes declared variables that
+have been provided an initial value at assemble time. The uninitialized data section,
+typically called BSS section, is where declared variables that have not been provided an
+initial value are stored. If accessed before being set, the value will not be meaningful.
+The heap is where dynamically allocated data will be stored (if requested). The stack
+starts in high memory and grows downward.
+Later sections will provide additional detail for the text and data sections.
+
+2.6 Memory Hierarchy
+In order to fully understand the various different memory levels and associated usage, it
+is useful to review the memory hierarchy12. In general terms, faster memory is more
+expensive and slower memory blocks are less expensive. The CPU registers are small,
+fast, and expensive. Secondary storage devices such as disk drives and Solid State
+11 For more information, refer to: http://en.wikipedia.org/wiki/Machine_code
+12 For more information, refer to: http://en.wikipedia.org/wiki/Memory_hierarchy
+
+Page 17
+
+Chapter 2.0 ◄ Architecture Overview
+Drives (SSD's) are larger, slower, and less expensive. The overall goal is to balance
+performance with cost.
+An overview of the memory hierarchy is as follows:
+Smaller, faster,
+and more
+expensive
+
+CPU
+Registers
+Cache
+Primary Storage
+Main Memory (RAM)
+Secondary Storage
+(disk drives, SSD's, etc.)
+Tertiary Storage
+(remote storage, optical, backups, etc.)
+Larger, slower,
+and less expensive
+Illustration 5: Memory Hierarchy
+Where the top of the triangle represents the fastest, smallest, and most expensive
+memory. As we move down levels, the memory becomes slower, larger, and less
+expensive. The goal is to use an effective balance between the small, fast, expensive
+memory and the large, slower, and cheaper memory.
+
+Page 18
+
+Some typical performance and size characteristics are as follows:
+Memory Unit
+
+Example Size
+
+Typical Speed
+
+Registers
+
+16, 64-bit registers
+
+~1 nanoseconds13
+
+Cache Memory
+
+4 - 8+ Megabytes14
+(L1 and L2)
+
+~5-60 nanoseconds
+
+Primary Storage
+(i.e., main memory)
+
+2 – 32+ Gigabytes15
+
+~100-150 nanoseconds
+
+Secondary Storage
+500 Gigabytes –
+(i.e., disk, SSD's, etc.) 4+ Terabytes16
+
+~3-15 milliseconds17
+
+Based on this table, a primary storage access at 100 nanoseconds (100 ´ 10-9) is 30,000
+times faster than a secondary storage access, at 3 milliseconds (3 ´ 10-3).
+The typical speeds improve over time (and these are already out of date). The key point
+is the relative difference between each memory unit is significant. This difference
+between the memory units applies even as newer, faster SSDs are being utilized.
+
+2.7 Exercises
+Below are some questions based on this chapter.
+
+2.7.1 Quiz Questions
+Below are some quiz questions.
+1) Draw a picture of the VonNeumann Architecture.
+2) What architecture component connects the memory to the CPU?
+3) Where are programs stored when the computer is turned off?
+4) Where must programs be located when they are executing?
+5) How does cache memory help overall performance?
+6) How many bytes does a C++ integer declared with the declaration int use?
+7) On the Intel X86-64 architecture, how many bytes can be stored at each address?
+13
+14
+15
+16
+17
+
+For more information, refer to:
+For more information, refer to:
+For more information, refer to:
+For more information, refer to:
+For more information, refer to:
+
+http://en.wikipedia.org/wiki/Nanosecond
+http://en.wikipedia.org/wiki/Megabyte
+http://en.wikipedia.org/wiki/Gigabyte
+http://en.wikipedia.org/wiki/Terabyte
+http://en.wikipedia.org/wiki/Millisecond
+
+Page 19
+
+Chapter 2.0 ◄ Architecture Overview
+8) Given the 32-bit hex 004C4B4016 what is the:
+1. Least Significant Byte (LSB)
+1. Most Significant Byte (MSB)
+9) Given the 32-bit hex 004C4B4016, show the little-endian memory layout showing
+each byte in memory.
+10) Draw a picture of the layout for the rax register.
+11) How many bits does each of the following represent:
+1.
+
+al
+
+2.
+
+rcx
+
+3.
+
+bx
+
+4.
+
+edx
+
+5.
+
+r11
+
+6.
+
+r8b
+
+7.
+
+sil
+
+8.
+
+r14w
+
+12) Which register points to the next instruction to be executed?
+13) Which register points to the current top of the stack?
+14) If al is set to 0516 and ax is set to 000716, eax is set to 0000002016, and rax is set
+to 000000000000000016, and show the final complete contents of the complete
+rax register.
+15) If the rax register is set to 81,985,529,216,486,89510 (123456789ABCDEF16),
+what are the contents of the following registers in hex?
+1.
+
+al
+
+2.
+
+ax
+
+3.
+
+eax
+
+4.
+
+rax
+
+Page 20
+
+
