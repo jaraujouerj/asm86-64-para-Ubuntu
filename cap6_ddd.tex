@@ -1,0 +1,22 @@
+\chapter{Debugger DDD}
+
+\begin{chapquote}{Autor desconhecido}
+``Meu software nunca possui bugs. Ele só
+desenvolve recursos aleatórios.''
+\end{chapquote}
+
+Um depurador permite ao usuário controlar a execução de um programa, examinar variáveis, outra memória (ou seja, espaço na pilha) e exibir a saída do programa (se houver). O GNU Data Display Debugger de código aberto (DDD\footnote{Para mais informações, consulte: https://pt.wikipedia.org/wiki/Data\_Display\_Debugger}) é um front-end visual para o GNU Debugger (GDB\footnote{Para mais informações, consulte: https://pt.wikipedia.org/wiki/GNU\_Debugger}) e está amplamente disponível. Outros depuradores podem ser facilmente usados, se desejado.
+
+Somente os comandos básicos do depurador são abordados neste capítulo. O depurador DDD possui muitos outros recursos e opções não abordados aqui. À medida que você ganha experiência, vale a pena revisar a documentação do DDD, mencionada no Capítulo \ref{cap1}, para aprender mais sobre os recursos adicionais, a fim de ajudar a melhorar a eficiência geral da depuração.
+
+A funcionalidade do DDD pode ser estendida usando vários plug-ins. Os plug-ins não são necessários e não serão abordados neste capítulo.
+
+Este capítulo aborda o uso do depurador GNU DDD como uma ferramenta. O processo lógico de como depurar um programa não é abordado neste capítulo.
+
+\section{Iniciando o DDD}
+O depurador \textbf{ddd} é iniciado com o arquivo executável. O programa deve ser montado e vinculado às opções corretas (conforme observado no capítulo anterior). Por exemplo, usando o programa exemplo anterior, por exemplo, o comando seria:
+\begin{verbatim}
+ddd exemplo
+\end{verbatim}
+
+Ao iniciar o DDD/GDB, algo semelhante à tela, mostrada abaixo, deve ser exibida (com o código-fonte apropriado exibido).

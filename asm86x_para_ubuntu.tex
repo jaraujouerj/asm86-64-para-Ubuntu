@@ -1,0 +1,244 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX book template                           %%
+%% Author:  Amber Jain (http://amberj.devio.us/) %%
+%% License: ISC license                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,11pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: http://en.wikibooks.org/wiki/LaTeX/Hyperlinks %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{ {imagens/} } 
+\usepackage[portuguese]{babel}
+\usepackage{booktabs}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pbox}
+\hypersetup{
+	colorlinks,
+	linkcolor={red!50!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
+
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{%
+	\put(0,0){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\vfill
+			\centering
+			\includegraphics[height=\paperheight]{fundo}
+			%\includegraphics[width=0.5\paperwidth,height=\paperheight,keepaspectratio]{imagens/processador}%
+			%\includegraphics[width=\paperwidth,height=\paperheight]{imagens/fundo.png}%
+
+			%\vfill
+}
+{\put(-320,-10){\makebox[0cm][c]{\raisebox{9cm}{\includegraphics[height=4cm]{processador}}
+}}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 'dedication' environment: To add a dedication paragraph at the start of book %
+% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{dedication}
+{
+   \cleardoublepage
+   \thispagestyle{empty}
+   \vspace*{\stretch{1}}
+   \hfill\begin{minipage}[t]{0.66\textwidth}
+   \raggedright
+}
+{
+   \end{minipage}
+   \vspace*{\stretch{3}}
+   \clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter quote at the start of chapter        %
+% Source: http://tex.stackexchange.com/a/53380 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][3em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-4\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First page of book which contains 'stuff' like: %
+%  - Book title, subtitle                         %
+%  - Book author name                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Book's title and subtitle
+\title{\Huge \textbf{x86-64 \\ \Huge Programação Assembly com Ubuntu}}
+% Author
+\author{\textsc{Ed Jorgensen}\\ {Tradução e adaptação: João Araujo}\thanks{araujo at eng.uerj.br}}
+
+\usetikzlibrary{shapes,arrows}
+
+% taken from manual
+\makeatletter
+\pgfdeclareshape{document}{
+	\inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+	\inheritanchorborder[from=rectangle]
+	\inheritanchor[from=rectangle]{center}
+	\inheritanchor[from=rectangle]{north}
+	\inheritanchor[from=rectangle]{south}
+	\inheritanchor[from=rectangle]{west}
+	\inheritanchor[from=rectangle]{east}
+	% ... and possibly more
+	\backgroundpath{% this is new
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		% compute corner of ‘‘flipped page’’
+		\pgf@xc=\pgf@xb \advance\pgf@xc by-10pt % this should be a parameter
+		\pgf@yc=\pgf@yb \advance\pgf@yc by-10pt
+		% construct main path
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathclose
+		% add little corner
+		\pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+	}
+}
+\makeatother
+
+
+\begin{document}
+\AddToShipoutPicture*{\BackgroundPic}
+
+\frontmatter
+\maketitle
+
+\parskip=10.0mm
+\noindent
+\textbf{Cover image:}\\
+Top view of an Intel central processing unit Core i7 Skylake type core,	model 6700K, released in June 2015.\\
+Source: Eric Gaba, \url{https://commons.wikimedia.org/wiki/File:Intel\_CPU\_Core\_i7\_6700K\_Skylake\_top.jpg}
+
+\noindent
+\textbf{Cover background:}\\
+By Benjamint444 (Own work)\\
+Source: \url{http://commons.wikimedia.org/wiki/File%3ASwirly_belt444.jpg} 
+
+\noindent	
+Copyright 2015, 2016, 2017, 2018, 2019 por Ed Jorgensen\\
+Copyright da tradução 2020 por João Araujo
+
+\includegraphics[width=5cm]{imagens/assembly-007}
+
+
+\parskip=2.0mm
+\noindent
+\textbf{Você é livre para:}\\
+\textbf{Compartilhar} -- copiar e redistribuir o material em qualquer suporte ou formato.\\
+\textbf{Adaptar} -- remixar, transformar, e criar a partir do material
+
+\noindent
+\textbf{De acordo com os termos seguintes:}\\
+\textbf{Atribuição} -- Você deve dar o crédito apropriado, prover um link para a licença e indicar se mudanças foram feitas. Você deve fazê-lo em qualquer circunstância razoável, mas de nenhuma maneira que sugira que o licenciante apoia você ou o seu uso.\\
+\textbf{Não Comercial} -- Você não pode usar o material para fins comerciais.\\
+\textbf{Compartilha Igual} -- Se você remixar, transformar, ou criar a partir do material, tem de distribuir as suas contribuições sob a mesma licença que o original.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add a dedication paragraph to dedicate your book to someone %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{dedication}
+%Dedicated to Calvin and Hobbes.
+%\end{dedication}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auto-generated table of contents, list of figures and list of tables %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+%%%%%%%%%%%
+% Preface %
+%%%%%%%%%%%
+\chapter*{Preface}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus ante, auctor et pulvinar non, posuere ac lacus. Praesent egestas nisi id metus rhoncus ac lobortis sem hendrerit. Etiam et sapien eget lectus interdum posuere sit amet ac urna.
+
+\section*{Un-numbered sample section}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus ante, auctor et pulvinar non, posuere ac lacus. Praesent egestas nisi id metus rhoncus ac lobortis sem hendrerit. Etiam et sapien eget lectus interdum posuere sit amet ac urna. Aliquam pellentesque imperdiet erat, eget consectetur felis malesuada quis. Pellentesque sollicitudin, odio sed dapibus eleifend, magna sem luctus turpis.
+
+\section*{Another sample section}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus ante, auctor et pulvinar non, posuere ac lacus. Praesent egestas nisi id metus rhoncus ac lobortis sem hendrerit. Etiam et sapien eget lectus interdum posuere sit amet ac urna. Aliquam pellentesque imperdiet erat, eget consectetur felis malesuada quis. Pellentesque sollicitudin, odio sed dapibus eleifend, magna sem luctus turpis, id aliquam felis dolor eu diam. Etiam ullamcorper, nunc a accumsan adipiscing, turpis odio bibendum erat, id convallis magna eros nec metus.
+
+\section*{Structure of book}
+% You might want to add short description about each chapter in this book.
+Each unit will focus on <SOMETHING>.
+
+\section*{About the companion website}
+The website\footnote{\url{https://github.com/amberj/latex-book-template}} for this file contains:
+\begin{itemize}
+  \item A link to (freely downlodable) latest version of this document.
+  \item Link to download LaTeX source for this document.
+  \item Miscellaneous material (e.g. suggested readings etc).
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Give credit where credit is due. %
+% Say thanks!                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgements}
+\begin{itemize}
+\item A special word of thanks goes to Professor Don Knuth\footnote{\url{http://www-cs-faculty.stanford.edu/~uno/}} (for \TeX{}) and Leslie Lamport\footnote{\url{http://www.lamport.org/}} (for \LaTeX{}).
+\item I'll also like to thank Gummi\footnote{\url{http://gummi.midnightcoding.org/}} developers and LaTeXila\footnote{\url{http://projects.gnome.org/latexila/}} development team for their awesome \LaTeX{} editors.
+\item I'm deeply indebted my parents, colleagues and friends for their support and encouragement.
+\end{itemize}
+\mbox{}\\
+%\mbox{}\\
+\noindent Amber Jain \\
+\noindent \url{http://amberj.devio.us/}
+
+%%%%%%%%%%%%%%%%
+% NEW CHAPTER! %
+%%%%%%%%%%%%%%%%
+\include{cap1_introducao}
+
+\include{cap2_visaoGeral}
+
+\include{cap3_RepresentacaoDeDados}
+
+\include{cap4_formatoDeUmPrograma}
+
+\include{cap5_fluxoDeTrabalho}
+
+\include{cap6_ddd}
+
+\include{cap7_conjuntoDeInstrucoes}
+
+\include{cap8_modos_de_enderecamentos}
+
+\include{cap9_pilha_de_processos}
+
+\include{cap10_desenvolvimentodeprogramas}
+
+\include{cap11_Macros}
+
+\include{cap12_Funções}
+
+
+\end{document}

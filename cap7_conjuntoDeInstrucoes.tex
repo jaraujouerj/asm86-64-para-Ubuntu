@@ -1,0 +1,50 @@
+\chapter{Visão Geral do Conjunto de Instruções}
+
+\begin{chapquote}{Autor desconhecido}
+``Por que os livros de matemática são tristes?
+Porque eles têm muitos problemas.''
+\end{chapquote}
+
+Este capítulo fornece uma visão geral básica de um subconjunto simples do conjunto de instruções x86-64 com foco nas operações inteiras. Isso abrangerá apenas o subconjunto de instruções necessárias para os tópicos e programas discutidos no escopo deste texto. Isso excluirá algumas das instruções mais avançadas e instruções de modo restrito. Para obter uma lista completa de todas as instruções do processador, consulte as referências listadas no Capítulo \ref{cap1}.
+
+As instruções são apresentadas na seguinte ordem:
+\begin{itemize}
+	\item Movimentação de dados
+	\item Instruções de conversão
+	\item Instruções aritméticas
+	\item Instruções lógicas
+	\item Instruções de controle
+\end{itemize}
+
+As instruções para chamadas de funções são discutidas no capítulo no capítulo \ref{cap12}, Funções.
+
+Uma lista completa das instruções abordadas neste texto está localizada no Apêndice \ref{apendiceB} para referência.
+
+\section{Convenções notacionais}
+Esta seção resume a notação usada neste texto, que é bastante comum na literatura técnica. Em geral, uma instrução consiste na própria instrução ou operação (isto é, add, sub, mul, etc.) e nos \textbf{operandos}. Os operandos se referem de onde os dados (a serem operados) são provenientes e/ou onde o resultado deve ser colocado.
+
+\subsection{Notação de Operando}
+A tabela a seguir resume as convenções de notação usadas no restante do documento.
+
+{\centering
+	\begin{table}[ht]
+		\centering
+		\begin{tabular}{|p{3cm}|p{9cm}|}
+			\hline
+			\rowcolor[HTML]{C0C0C0} 
+			{\color[HTML]{000000} } Notação de Operando & {\color[HTML]{000000} }Descrição \\ \hline
+			\textbf{<reg>}& Operando registrador. O operando deve ser um registrador. \\ \hline
+			\textbf{<reg8>,<reg16>, <reg32>,<reg64>} & Registrador operando com requisito de tamanho específico. Por exemplo, \textbf{reg8} significa apenas um registro de tamanho de byte (por exemplo, \textbf{al}, \textbf{bl}, etc.) e \textbf{reg32} significa um registro de tamanho de palavra dupla (por exemplo, \textbf{eax}, \textbf{ebx}, etc.).\\ \hline
+			\textbf{<dest>} & Operando de destino. O operando pode ser um registro ou memória. Por ser um operando de destino, o conteúdo será sobrescrito pelo novo resultado (com base nas instruções específicas).\\ \hline
+			\textbf{<RXdest>} & Operando de registro de destino de ponto flutuante. O operando deve ser um registrador de ponto flutuante. Por ser um operando de destino, o conteúdo será sobrescrito pelo novo resultado (com base nas instruções específicas).\\ \hline
+			\textbf{<src>} & Operando de origem. O valor do operando é inalterado após a instrução.\\ \hline
+			\textbf{<imm>} & Valor imediato. Pode ser especificado em decimal, hexadecimal, octal ou binário.\\ \hline
+			\textbf{<mem>} & Localização da memória. Pode ser um nome de variável ou uma referência indireta (ou seja, um endereço de memória).\\ \hline
+			\textbf{<op> ou <operand>} & Operando, registrador ou memória.\\ \hline
+			\textbf{<op8>,<op16>, <op32>,<op64>} & Operando, registrador ou memória, com requisitos de tamanho específico. Por exemplo, \textbf{op8} significa apenas um operando de tamanho de byte e \textbf{reg32} significa apenas um operando de tamanho de palavra dupla.\\ \hline
+			\textbf{<label>} & Rótulo do programa.\\ \hline
+		\end{tabular}
+		\caption{}
+		\label{notacao}
+	\end{table}
+}

@@ -1,0 +1,276 @@
+\chapter{Formato de um programa}
+
+\begin{chapquote}{Autor desconhecido}
+``Eu adoraria mudar o mundo, mas eles não vão me dar o código fonte.''
+\end{chapquote}
+Este capítulo resume os requisitos de formatação para programas em linguagem assembly. Os requisitos de formatação são específicos para o  \textit{assembler} \textbf{yasm}. Outros montadores podem
+ser um pouco diferente. Um programa completo na linguagem assembly é apresentado para demonstrar a formatação apropriada do programa.
+
+Um arquivo de origem de montagem formatado corretamente consiste em várias partes principais:
+\begin{itemize}
+	\item Seção de dados, na qual os dados inicializados são declarados e definidos.
+	\item Seção BSS, na qual dados não inicializados são declarados.
+	\item Seção de texto, na qual o código é colocado.
+\end{itemize}
+
+As seções a seguir resumem os requisitos básicos de formatação. Somente o básico da formatação e sintaxe do assembler serão apresentadas. Para informações adicionais, consulte o
+manual de referência \textbf{yasm} (como observado no Capítulo \ref{cap1}, Introdução).
+
+\section{Comentários}
+O ponto-e-vírgula (\textbf{;}) é usado para anotar os comentários do programa. Comentários (usando o \textbf{;}) podem ser
+colocados em qualquer lugar, inclusive após uma instrução. Qualquer caractere após o \textbf{;} é ignorado pelo montador. Isso pode ser usado para explicar as etapas executadas no código ou para comentar
+seções de código.
+
+\section{Valores numéricos}
+Os valores numéricos podem ser especificados em decimal, hexadecimal ou octal. 
+
+Ao especificar valores hexadecimais ou de base 16, eles são precedidos por um \textbf{0x}. Por exemplo, para especificar \textbf{127} como hexadecimal, usamos \textbf{0x7f}.
+
+Ao especificar valores octais, ou base 8, eles são seguidos por um \textbf{q}. Por exemplo, para especificar \textbf{511} como octal, seria \textbf{777q}.
+
+O radical padrão (base) é decimal, portanto, nenhuma notação especial é necessária para números decimais (base 10).
+
+\section{Definindo constantes}
+Constantes são definidas com \textbf{equ}. O formato geral é:
+
+\begin{verbatim}
+<nome> equ <valor>
+\end{verbatim}
+
+O valor de uma constante não pode ser alterado durante a execução do programa.
+
+As constantes são substituídas pelos valores definidos durante o processo de montagem. Sendo assim, uma constante não recebe um local de memória. Isso torna a constante mais flexível, pois não é atribuído um tipo/tamanho específico (byte, palavra, palavra dupla, etc.). Os valores estão sujeitos às limitações de alcance do uso pretendido. Por exemplo, a seguinte constante,
+\begin{verbatim}
+TAMANHO equ 10000
+\end{verbatim}
+pode ser usada como uma word ou word dupla, mas não como um byte.
+
+\section{Seção de dados}
+Os dados inicializados devem ser declarados na seção ``\textit{section .data}''. Deve haver um espaço após a palavra `\textit{section}'. Todas as variáveis e constantes são colocadas nesta seção. Os nomes de variáveis devem começar com uma letra, seguida de letras ou números, incluindo alguns caracteres especiais (como o sublinha, ``\_''). Definições de variáveis devem incluir o nome, o tipo de dados e o valor inicial da variável.
+
+O formato geral é:
+\begin{verbatim}
+<nomeVariável> <tipoDeDado> <valorInicial>
+\end{verbatim}
+
+Consulte as seções a seguir para uma série de exemplos usando vários tipos de dados.
+
+Os tipos de dados suportados estão na Tabela \ref{tab:tiposDeDados}.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|l|}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		{\color[HTML]{000000} } Declaração & {\color[HTML]{000000} } \\ \hline
+		\textbf{db}& variáveis de 8 bits \\ \hline
+		\textbf{dw} & variáveis de 16 bits\\ \hline
+		\textbf{dd} & variáveis de 32 bits\\ \hline
+		\textbf{dq} & variáveis de 64 bits\\ \hline
+		\textbf{ddq} & variáveis de 128 bits $\rightarrow$ inteira\\ \hline
+		\textbf{dt} & variáveis de 128 bits $\rightarrow$ ponto flutuante\\ \hline
+	\end{tabular}
+\caption{Tipos de dados.}
+\label{tab:tiposDeDados}
+\end{table}
+
+Estas são as diretivas principais do assembler para declarações de dados inicializados. Outras diretivas são referenciadas em diferentes seções.
+
+Vetores inicializadas são definidos com valores separados por vírgula.
+
+Alguns exemplos simples incluem:
+
+\begin{verbatim}
+bVar    db  10              ; variável byte
+cVar    db  "H"             ; caracter único
+strng   db  "Hello World"   ; string
+wVar    dw 	5000            ; variável word
+dVar    dd 	50000           ; variável de 32 bits
+arr     dd 	100, 200, 300   ; array com 3 elementos
+flt1    dd 	3.14159         ; ponto flutuante de 32 bits
+qVar    dq 	1000000000      ; variável de 64 bits
+\end{verbatim}
+
+O valor especificado deve poder caber no tipo de dados especificado. Por exemplo, se o valor de uma variável de tamanho de byte é definido como 500, geraria um erro do assembler.
+
+\section{Seção BSS}
+Dados não inicializados são declarados na seção ``section .bss'' (Block Started by Symbol). Deve haver um espaço depois da palavra 'section'. Todas as 
+variáveis não inicializadas são declaradas nesta seção. Os nome de variável começam com uma letra seguida de letras ou números, incluindo alguns caracteres especiais (como o sublinha, ``\_''). As definições de variáveis devem incluir o tipo de dados e a contagem.
+
+O formato geral é:
+\begin{verbatim}
+<nomeDeVariável> <resTipo> <contador>
+\end{verbatim}
+
+Consulte as seções a seguir para uma série de exemplos usando vários tipos de dados.
+
+Os tipos de dados suportados estão na Tabela \ref{tabDadosNInicializados}:
+
+{\centering
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|l|}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		{\color[HTML]{000000} } Declaração & {\color[HTML]{000000} } \\ \hline
+		\textbf{resb}& variáveis de 8 bits \\ \hline
+		\textbf{resw} & variáveis de 16 bits\\ \hline
+		\textbf{resd} & variáveis de 32 bits\\ \hline
+		\textbf{resq} & variáveis de 64 bits\\ \hline
+		\textbf{resdq} & variáveis de 128 bits \\ \hline
+	\end{tabular}
+    \caption{Declarações de variáveis não inicializadas}
+    \label{tabDadosNInicializados}
+\end{table}
+} 
+
+Essas são as diretivas do assembler principal para declarações de dados não inicializados. Outras diretivas são referenciadas em diferentes seções.
+
+Alguns exemplos simples incluem:
+
+\begin{verbatim}
+bArr  resb 10  ; vetor com 10 elementos com tamanho byte
+wArr  resw 50  ; vetor com 50 elementos com tamanho word
+dArr  resd 100 ; vetor com 100 elementos com tamanho double
+qArr  resq 200 ; vetor com 10 elementos com tamanho quad
+\end{verbatim}
+
+A matriz alocada não é inicializada para nenhum valor específico.
+
+\section{Seção de texto}
+O código é colocado na seção ``section .text''. Deve haver um espaço após a palavra 'section'. As instruções são especificadas uma por linha e cada uma deve ser uma instrução válida com os operandos necessários apropriados.
+
+A seção de texto incluirá alguns cabeçalhos ou etiquetas que definem o ponto de entrada inicial do programa. Por exemplo, assumindo um programa básico usando o \textit{linker} padrão do sistema, as seguintes declarações devem ser incluídas.
+\begin{verbatim}
+global _start
+_start:
+\end{verbatim}
+
+Nenhuma etiqueta ou diretiva especial é necessária para encerrar o programa. No entanto, um serviço do sistema deve ser usado para informar ao sistema operacional que o programa deve ser encerrado e os recursos, como memória, recuperados e reutilizados. Consulte o
+exemplo de programa na seção a seguir.
+
+\section{Programa de exemplo}
+Um programa em linguagem assembly muito simples é apresentado para demonstrar a formatação do programa.
+
+\begin{verbatim}
+; Exemplo simples que demonstra o formato e o layout básicos do programa.
+
+; Ed Jorgensen
+; July 18, 2014
+
+; ************************************************************
+; Algumas declarações básicas de dados
+
+section .data
+
+; -----
+; Define constantes
+
+EXIT_SUCCESS      equ 0  ; operação bem sucedida
+SYS_exit          equ 60 ; chamada de código para terminar
+
+; -----
+; Declarações de variáveis Byte (8-bits)
+
+bVar1             db 17 
+bVar2             db 9
+bResult           db 0
+
+; -----
+; Declarações de variáveis word (16-bits)
+wVar1             dw 17000
+wVar2             dw 9000
+wResult           dw 0
+
+; -----
+; Declarações de variáveis word dupla (32-bits)
+dVar1             dd 17000000
+dVar2             dd 9000000
+dResult           dd 0
+
+; -----
+; Declarações de variáveis quad-word dupla (64-bits)
+qVar1             dq 170000000
+qVar2             dq 90000000
+qResult           dq 0
+
+; ************************************************************
+; Seção de código
+section .text
+global _start
+_start:
+
+; ----------
+; Executa uma série de operações de adição muito básicas
+; para demonstrar o formato básico do programa.
+; ----------
+; Exemplo de byte
+; bResult = bVar1 + bVar2
+    mov    al, byte [bVar1]
+    add    al, byte [bVar2]
+    mov    byte [bResult], al
+
+; ----------
+; Exemplo word
+; wResult = wVar1 + wVar2
+    mov   ax, word [wVar1]
+    add   ax, word [wVar2]
+    mov   word [wResult], ax
+
+; ----------
+;  double-word
+; dResult = dVar1 + dVar2
+    mov   eax, dword [dVar1]
+    add   eax, dword [dVar2]
+    mov   dword [dResult], eax
+
+; ----------
+; Exemplo quad-word
+; qResult = qVar1 + qVar2
+    mov   rax, qword [qVar1]
+    add   rax, qword [qVar2]
+    mov   qword [qResult], rax
+
+; ************************************************************
+; Feito, termina o programa.
+last:
+    mov rax, SYS_exit
+    mov rdi, EXIT_SUCCESS
+    syscall
+\end{verbatim}
+
+Este exemplo de programa será referenciado e melhor explicado nos capítulos seguintes.
+
+\section{Exercícios}
+Abaixo estão algumas questões baseadas neste capítulo.
+
+\subsection{Perguntas}
+Abaixo estão algumas perguntas do questionário.
+\begin{enumerate}
+	\item Qual é o nome do montador sendo usado neste capítulo?
+	\item Como os comentários são marcados em um programa em linguagem assembly?
+	\item Qual é o nome da seção em que os dados inicializados foram declarados?
+	\item Qual é o nome da seção em que os dados não inicializados foram declarados?
+	\item Qual é o nome da seção onde o código é colocado?
+	\item Qual é a declaração de dados para cada uma das seguintes variáveis com os valores fornecidos:
+	\begin{enumerate}
+		\item  variável de tamanho byte \textbf{\textit{bNum}} definida como $10_{10}$
+		\item variável de tamanho de palavra \textbf{\textit{wNum}} definida como $10.291_{10}$
+		\item variável \textbf{\textit{dwNum}} de tamanho de palavra dupla definida como $2.126.010_{10}$
+		\item variável de tamanho quádruplo \textbf{\textit{qwNum} } definida como $10.000.000.000_{10}$
+	\end{enumerate}
+    \item Qual é a declaração de dados não inicializados para cada um dos seguintes casos:    
+    \begin{enumerate}
+    	\item matriz com tamanho de bytes chamada \textbf{\textit{bArr}} com 100 elementos
+    	\item array com tamanho de palavra chamado \textbf{\textit{wArr} }com 3000 elementos
+    	\item array com tamanho double-word, chamado \textbf{\textit{dwArr}}, com 200 elementos
+    	\item array com tamanho de quad-word chamado \textbf{\textit{qArr}} com 5000 elementos
+    \end{enumerate}
+    \item Quais são as declarações necessárias para indicar o início de um programa (na seção texto)?
+
+\end{enumerate}
+
