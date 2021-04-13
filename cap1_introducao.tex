@@ -1,0 +1,114 @@
+\chapter{Introdução}
+
+\begin{chapquote}{Autor desconhecido}
+``Se você der um programa a alguém, você irá
+frustrá-lo por um dia; se você ensiná-lo a
+programar, você o frustrará por toda a vida.''
+
+\end{chapquote}
+\label{cap1}
+O objetivo deste texto é fornecer uma referência para cursos de linguagem assembly e programação de sistemas de nível universitário. Especificamente, este texto aborda o conjunto de instruções x86-64\footnote{Para obter mais informações, consulte: \url{http://pt.wikipedia.org/wiki/X86-64}} para a popular classe de processadores x86-64 usando o sistema operacional (SO) Ubuntu de 64 bits. Embora o código fornecido e vários exemplos devam funcionar em qualquer sistema operacional baseado em Linux de 64 bits, eles foram testados apenas no Ubuntu 14.04 LTS (64 bits).
+
+O x86-64 é um projeto de um Computador com um Conjunto Complexo de Instruções (ou, do inglês: Complex Instruction Set Computing - CISC\footnote{Para obter mais informações, consulte: https://pt.wikipedia.org/wiki/CISC}). Isso se refere à filosofia de design do processador interno. Os processadores CISC normalmente incluem uma ampla variedade de instruções (às vezes sobrepostas), tamanhos variados de instruções e uma ampla gama de modos de endereçamento. O termo foi cunhado retroativamente em contraste com Computador com um conjunto reduzido de instruções (ou, do inglês: Reduced Instruction Set Computer (RISC\footnote{Para obter mais informações, consulte: https://pt.wikipedia.org/wiki/RISC}).
+
+\section{Pré-requisitos}
+Deve-se notar que o texto não visa aprender a programar. Supõe-se que o leitor já se tornou proficiente em uma linguagem de programação de alto nível. Especificamente, o texto é geralmente voltado para uma linguagem de alto nível baseada em C compilada, como C, C ++ ou Java. Muitas das explicações e exemplos assumem que o leitor já está familiarizado com conceitos de programação, como declarações, operações aritméticas, estruturas de controle, iteração, chamadas de função, funções, indireção (ou seja, ponteiros) e questões de escopo variável.
+
+Além disso, o leitor deve se sentir confortável ao usar um sistema operacional baseado em Linux, incluindo o uso da linha de comando. Se o leitor for novo no Linux, a seção Referências adicionais contém links para algumas documentações úteis.
+
+\section{O que é a linguagem assembly}
+A pergunta típica feita pelos alunos é 'por que aprender \textit{assembly}?'. Antes de abordar essa questão, vamos esclarecer o que exatamente é a linguagem \textit{assembly}.
+
+A linguagem \textit{assembly} é específica da máquina. Por exemplo, o código escrito para um processador x86-64 não será executado em um processador diferente, como um processador RISC (popular em tablets e smartphones).
+
+A linguagem \textit{assembly} é uma linguagem de ``baixo nível'' e fornece a interface de instrução básica para o processador do computador. A linguagem \textit{assembly} é o mais próximo do processador que você pode chegar como um programador. Os programas escritos em uma linguagem de alto nível são traduzidos para a linguagem \textit{assembly} para que o processador execute o programa. A linguagem de alto nível é uma abstração entre a linguagem e as instruções reais do processador. Como tal, a ideia de que ``o assembly está morto`'' é um absurdo.
+
+A linguagem \textit{assembly} fornece controle direto dos recursos do sistema. Isso envolve definir os registros do processador, acessar locais de memória e fazer interface com outros elementos de hardware. Isso requer uma compreensão significativamente mais profunda de exatamente como o processador e a memória funcionam.
+
+\section{Por que aprender a linguagem assembly?}
+O objetivo deste texto é fornecer uma introdução abrangente à programação em linguagem \textit{assembly}. As razões para aprender a linguagem \textit{assembly} são mais sobre como entender como um computador funciona, em vez de desenvolver programas grandes. Já que a linguagem \textit{assembly} é específica da máquina, a falta de portabilidade é muito limitante para projetos de programação.
+
+O processo de realmente aprender a linguagem \textit{assembly} envolve escrever programas não triviais para realizar ações específicas de baixo nível, incluindo operações aritméticas, chamadas de função, usando variáveis locais dinâmicas na pilha e interação do sistema operacional para atividades como entrada/saída. Apenas olhar para pequenos programas em linguagem \textit{assembly} não será suficiente.
+
+No longo prazo, aprender os princípios básicos, incluindo a linguagem \textit{assembly}, é o que faz a diferença entre um técnico de codificação incapaz de lidar com linguagens em mudança e um cientista da computação que é capaz de se adaptar às tecnologias em constante mudança.
+
+As seções a seguir fornecem alguns detalhes sobre os vários motivos mais específicos para aprender a linguagem \textit{assembly}.
+
+\subsection{Obter uma melhor compreensão dos problemas de arquitetura}
+Aprender e passar algum tempo trabalhando no nível da linguagem assembly fornece uma compreensão mais rica da arquitetura de computador subjacente. Isso inclui o conjunto de instruções básicas, registros do processador, endereçamento de memória, interface de hardware e entrada/saída. Uma vez que, em última análise, todos os programas são executados nesse nível, conhecer os recursos da linguagem \textit{assembly} fornece \textit{insights} úteis sobre o que é possível, o que é fácil e o que pode ser mais difícil ou mais lento.
+
+\subsection{Compreender a cadeia de ferramentas}
+A cadeia de ferramentas é o nome do processo de pegar o código escrito por um humano e convertê-lo em algo que o computador possa executar diretamente. Isso inclui o compilador, ou \textit{assembler} (montador) em nosso caso, o \textit{linker} (vinculador), o \textit{loader} (carregador) e o \textit{debugger} (depurador). Em referência à compilação, os programadores iniciantes são informados ``apenas faça isso`'', com pouca explicação sobre a complexidade envolvida no processo. Trabalhar em um nível inferior pode ajudar a fornecer a base para a compreensão e apreciação dos detalhes da cadeia de ferramentas.
+
+\subsection{Melhorar as habilidades de desenvolvimento de algoritmo}
+Trabalhar com linguagem \textit{assembly} e escrever programas de baixo nível ajuda os programadores a melhorar as habilidades de desenvolvimento de algoritmos, praticando com uma linguagem que requer mais reflexão e mais atenção aos detalhes. No caso altamente improvável de um programa não funcionar na primeira vez, a depuração de linguagem \textit{assembly} também fornece depuração prática e requer uma abordagem mais sutil, pois apenas adicionar um punhado de instruções de saída é mais difícil no nível da linguagem \textit{assembly}. Isso normalmente envolve um uso mais abrangente de um depurador, que é uma habilidade útil para qualquer programador.
+
+\subsection{Melhorar a compreensão das funções/procedimentos}
+Trabalhar com a linguagem \textit{assembly} fornece uma compreensão muito melhor de como funcionam as chamadas de função/procedimento. Isso inclui o conteúdo e a estrutura do \textit{frame} de chamada de função, também conhecido como registro de ativação. Dependendo da instância específica, o registro de ativação pode incluir argumentos baseados em pilha, registros preservados e/ou variáveis locais dinâmicas de pilha. Existem algumas implicações significativas de implementação e segurança em relação às variáveis locais dinâmicas da pilha que são mais bem compreendidas trabalhando em um nível baixo. Devido às implicações de segurança, seria apropriado lembrar aos leitores de sempre usarem seus poderes para o bem. Além disso, o uso da pilha e do \textit{frame} de chamada associado é a base para a recursão e a compreensão da implementação bastante direta das funções recursivas.
+
+\subsection{Obter uma compreensão do buffer de E/S}
+Em uma linguagem de alto nível, as instruções de entrada/saída e as operações de \textit{buffer} associadas podem parecer mágicas. Trabalhar no nível da linguagem \textit{assembly} e realizar algumas operações de entrada/saída de baixo nível fornece uma compreensão mais detalhada de como a entrada/saída e o armazenamento em \textit{buffer} realmente funcionam. Isso inclui as diferenças entre entrada/saída interativa, entrada/saída de arquivo e os serviços de sistema operacional associados.
+
+\subsection{Compreender o escopo do compilador}
+Programar em linguagem \textit{assembly}, depois de já ter aprendido uma linguagem de alto nível, ajuda a garantir que os programadores entendam o escopo e as capacidades de um compilador. Especificamente, isso significa aprender o que o compilador faz e o que não faz em relação à arquitetura do computador.
+
+\subsection{Introdução conceitos de multiprocessamento}
+Este texto também fornecerá uma breve introdução aos conceitos de multiprocessamento. Os conceitos gerais de programação distribuída e multi-core são apresentados com o foco sendo colocado na memória compartilhada, processamento encadeado. É crença do autor que a verdadeira compreensão das questões sutis associadas ao encadeamento, como memória compartilhada e condições de corrida, é mais facilmente compreendida em baixo nível.
+
+\subsection{Introdução aos conceitos de processamento de interrupção}
+O mecanismo fundamental subjacente no qual os computadores multiusuário modernos funcionam é baseado em interrupções. Trabalhar em um nível inferior é o melhor lugar para fornecer uma introdução aos conceitos básicos associados ao tratamento de interrupções, identificadores de serviço de interrupção e interrupções de vetor.
+
+\section{Referências Adicionais}
+Algumas referências importantes para informações adicionais são observadas nas seções a seguir. Essas referências fornecem informações muito mais extensas e detalhadas.
+
+Se algum desses locais mudar, uma pesquisa na web poderá encontrar o novo local.
+
+\subsection{Referências para o Ubuntu}
+Há documentação significativa disponível para o sistema operacional Ubuntu. O principal guia do usuário é o seguinte:
+\begin{itemize}
+	\item \href{https://ubuntuforum-br.org/}{Fórum Ubuntu}
+	\item \href{https://help.ubuntu.com/stable/ubuntu-help/getting-started.html}{Primeiros Passos}
+\end{itemize}
+
+Além disso, existem muitos outros sites dedicados a fornecer ajuda para usar o Ubuntu (ou outros sistemas operacionais baseados em Linux).
+
+\subsection{Referências de linha de comando BASH}
+\textbf{BASH} é o shell padrão do Ubuntu. O leitor deve estar familiarizado com as operações básicas de linha de comando. Algumas referências adicionais são as seguintes:
+\begin{itemize}
+	\item \href{https://www.hostinger.com.br/tutoriais/comandos-linux}{35 Comandos Linux Que Todo Usuário Deve Conhecer}
+	\item \href{http://leg.ufpr.br/~fernandomayer/aulas/ce083/shell-linux.html}{Introdução ao Shell Linux}
+\end{itemize}
+
+Além disso, existem muitos outros sites dedicados a fornecer informações sobre o shell de comando \textbf{BASH}.
+
+\subsection{Referências de arquitetura}
+Algumas referências importantes publicadas pela Intel fornecem uma descrição técnica detalhada da arquitetura e do ambiente de programação dos processadores Intel que oferecem suporte às arquiteturas IA-32 e Intel 64.
+\begin{itemize}
+	\item \href{https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-1-manual.pdf}{Intel\textregistered\space 64 and IA-32 Architectures	Software Developer’s Manual: Basic
+		Architecture.}
+	\item \href{http://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf}{Intel\textregistered\space 64 and IA-32 Architectures Software Developer’s Manual: Instruction
+		Set Reference.}
+	\item  \href{https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-system-programming-manual-325384.pdf}{Intel\textregistered\space 64 and IA-32 Architectures Software Developer’s Manual: System
+		Programming Guide.}
+\end{itemize}
+
+Se os links incorporados não funcionarem, uma pesquisa na Internet pode ajudar a encontrar o novo local.
+
+\subsection{Referências de cadeia de ferramentas}
+A cadeia de ferramentas inclui o montador, o vinculador, o carregador e o depurador. O Capítulo \ref*{Ferramentasdedesenvolvimento}, Cadeia de ferramentas, fornece uma visão geral da cadeia de ferramentas usada neste texto. As referências a seguir fornecem informações e documentação mais detalhadas.
+
+\subsubsection{Referências YASM}
+O assembler YASM é um assembler de código aberto comumente disponível em sistemas baseados em Linux. As referências \textbf{YASM} são as seguintes:
+\begin{itemize}
+	\item \href{http://yasm.tortall.net/}{Site Web Yasm}
+	\item \href{http://yasm.tortall.net/Guide.html}{Documentação Yasm}
+\end{itemize}
+Informações adicionais sobre YASM podem estar disponíveis em vários sites de linguagem assembly e podem ser encontradas por meio de uma pesquisa na Internet.
+
+\subsubsection{Referências do Debugger DDD}
+O depurador DDD é um depurador de código aberto capaz de oferecer suporte a linguagem assembly.
+\begin{itemize}
+	\item \href{http://www.gnu.org/software/ddd/}{Site Web DDD}
+	\item \href{http://www.gnu.org/software/ddd/manual/}{Documentação DDD}
+\end{itemize}
+Informações adicionais sobre DDD podem estar em vários sites de linguagem assembly e podem ser encontradas em uma pesquisa na Internet.
