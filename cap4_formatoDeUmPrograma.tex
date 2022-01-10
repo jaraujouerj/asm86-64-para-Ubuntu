@@ -1,9 +1,8 @@
 \chapter{Formato de um programa}
 \label{cap4:formato}
 
-\begin{chapquote}{Autor desconhecido}
-``Eu adoraria mudar o mundo, mas eles não vão me dar o código fonte.''
-\end{chapquote}
+\epigraph{``Eu adoraria mudar o mundo, mas eles não vão me dar o código fonte.''}
+
 Este capítulo resume os requisitos de formatação para programas em linguagem assembly. Os requisitos de formatação são específicos para o  \textit{assembler} \textbf{yasm}. Outros montadores podem
 ser um pouco diferente. Um programa completo na linguagem assembly é apresentado para demonstrar a formatação apropriada do programa.
 
@@ -99,7 +98,7 @@ qVar    dq 	1000000000      ; variável de 64 bits
 O valor especificado deve poder caber no tipo de dados especificado. Por exemplo, se o valor de uma variável de tamanho de byte é definido como 500, geraria um erro do assembler.
 
 \section{Seção BSS}
-Dados não inicializados são declarados na seção ``section .bss'' (Block Started by Symbol). Deve haver um espaço depois da palavra 'section'. Todas as 
+Dados não inicializados são declarados na seção ``section .bss'' (\textit{Block Started by Symbol}). Deve haver um espaço depois da palavra 'section'. Todas as 
 variáveis não inicializadas são declaradas nesta seção. Os nome de variável começam com uma letra seguida de letras ou números, incluindo alguns caracteres especiais (como o sublinha, ``\_''). As definições de variáveis devem incluir o tipo de dados e a contagem.
 
 O formato geral é:

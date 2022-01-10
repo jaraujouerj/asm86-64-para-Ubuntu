@@ -21,6 +21,7 @@
 \usepackage{booktabs}
 \usepackage{tikz}
 \usepackage{pbox}
+\usepackage{epigraph}
 \hypersetup{
 	colorlinks,
 	linkcolor={red!50!black},
@@ -92,12 +93,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
 \renewcommand{\@chapapp}{}% Not necessary...
-\newenvironment{chapquote}[2][3em]
-  {\setlength{\@tempdima}{#1}%
-   \def\chapquote@author{#2}%
-   \parshape 1 \@tempdima \dimexpr\textwidth-4\@tempdima\relax%
-   \itshape}
-  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\newenvironment{chapquote}[2]
+{\begin{minipage}{.66\textwidth}
+	\epigraph{#2}
+%{\textit{#1}}
+	
+\end{minipage}% This must go next to `\end{minipage}`
+%\begin{minipage}{.3\textwidth}
+%	\advance\leftskip+0.3cm\includegraphics[width=\linewidth]{imagens/computer}
+%\end{minipage}
+}
+%\newenvironment{chapquote}[2][3em]
+%  {\setlength{\@tempdima}{#1}%
+%   \def\chapquote@author{#2}%
+%   \parshape 1 \@tempdima \dimexpr\textwidth-4\@tempdima\relax%
+%   \itshape}
+%  {\par\normalfont\hfill--\ %\chapquote@author\hspace*{\@tempdima}\par\bigskip}
 \makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -111,6 +122,16 @@
 \author{\textsc{Ed Jorgensen}\\ {Tradução e adaptação: João Araujo}\thanks{araujo at eng.uerj.br}}
 
 \usetikzlibrary{shapes,arrows}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+
+\pagestyle{fancyplain}
+\fancyhf{}
+\lhead{ \fancyplain{}{\chaptername} }
+\rhead{ \fancyplain{}{\chaptername} }
+\rfoot{ \fancyplain{}{\thepage} }
 
 % taken from manual
 \makeatletter

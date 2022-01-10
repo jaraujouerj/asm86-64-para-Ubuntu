@@ -1,11 +1,11 @@
 \chapter{Representação de dados}
 \label{cap:representacaodedados}
 
-\begin{chapquote}{Autor desconhecido}
+\epigraph{
 ``Existem 10 tipos de pessoas no mundo;
 aquelas que entendem binário e aquelas que
 não entendem binário.''
-\end{chapquote}
+}
 
 A representação de dados se refere a como as informações são armazenadas no computador. Existe um método específico para armazenar números inteiros que é diferente do armazenamento de valores de ponto flutuante, que é diferente do armazenamento de caracteres. Este capítulo apresenta um breve resumo dos esquemas de representação de inteiro, ponto flutuante e ASCII.
 
@@ -234,7 +234,7 @@ Ao representar valores de ponto flutuante, a primeira etapa é converter o valor
 
 Por exemplo, $ 100,101_2 $ seria $ 4,625_{10} $. Para decimais repetidas, o cálculo do valor binário pode ser demorado. No entanto, há um limite, pois os computadores têm tamanhos de armazenamento finitos (32 bits neste exemplo).
 
-A próxima etapa é mostrar o valor em notação científica normalizada em binário. Isso significa que o número deve ter um único dígito inicial diferente de zero à esquerda da vírgula decimal. Por exemplo, $ 8,125_{10} $ é $ 1000,001_2 $ (ou $ 1000,001_2 \times 2^0$) e em notação científica binária normalizada que seria escrita como $ 1,000001 \times 2^3 $ (já que a vírgula decimal foi movida três casas para a esquerda). Claro, se o número fosse $ 0,125_{10} $, o binário seria $ 0,001_2 $ (ou $ 0,001_2 \times 2^0 $) e a notação científica normalizada seria $ 1,0 \times 2_{-3} $ (já que a vírgula decimal foi movida três casas para a direita). Os números após o 1 inicial, não incluindo o 1 inicial, são armazenados justificados à esquerda na parte da fração da palavra dupla.
+A próxima etapa é mostrar o valor em notação científica normalizada em binário. Isso significa que o número deve ter um único dígito inicial diferente de zero à esquerda da vírgula decimal. Por exemplo, $ 8,125_{10} $ é $ 1000,001_2 $ (ou $ 1000,001_2 \times 2^0$) e em notação científica binária normalizada que seria escrita como $ 1,000001 \times 2^3 $ (já que a vírgula decimal foi movida três casas para a esquerda). Claro, se o número fosse $ 0,125_{10} $, o binário seria $ 0,001_2 $ (ou $ 0,001_2 \times 2^0 $) e a notação científica normalizada seria $ 1,0 \times 2^{-3} $ (já que a vírgula decimal foi movida três casas para a direita). Os números após o 1 inicial, não incluindo o 1 inicial, são armazenados justificados à esquerda na parte da fração da palavra dupla.
 
 A próxima etapa é calcular o expoente em excesso, que é o expoente da notação científica normalizada com mais o excesso. O excesso para o padrão de ponto flutuante de 32 bits \textbf{IEEE 754} é $ 127_{10} $. O resultado deve ser convertido para um byte (8 bits) e armazenado na parte expoente em excesso da palavra.
 
